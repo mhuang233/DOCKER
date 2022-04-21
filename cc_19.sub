@@ -1,0 +1,18 @@
+universe = docker
+docker_image = hcp4715/rstudio_bayes:cmdstanr
+log = /home/mhuang233/ccrem_carolyn_19/cluster_$(Cluster).log
+error = /home/mhuang233/ccrem_carolyn_19/cluster_$(Cluster)_$(Process).err
+
+executable = cc_19.sh
+arguments = $(Process)
+output = /home/mhuang233/ccrem_carolyn_19/cluster_$(Cluster)_$(Process).out
+
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+transfer_input_files = ALL.R
+
+request_cpus = 2
+request_memory = 50GB
+request_disk = 50GB
+
+queue 1
