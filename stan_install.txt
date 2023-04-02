@@ -1,4 +1,4 @@
-# Procedures for install rstan manually
+# Procedures for install rstan manually instead of using Docker
 You will use the following steps to install Rstan:
 
 Steps:
