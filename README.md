@@ -1,5 +1,5 @@
 # DOCKER and CHTC
-Procedures for using Docker and CHTC (The high speed computig cluster) step by step.
+Procedures for using Docker and CHTC (Center for High Throughput Computing) step by step.
 
 # Step 1: Set up Docker
 For Bayes stan user, using Docker is more convenient since stan requires other compliers.
