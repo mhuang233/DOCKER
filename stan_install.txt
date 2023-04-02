@@ -1,0 +1,107 @@
+# Procedures for install rstan manually
+You will use the following steps to install Rstan:
+
+Steps:
+
+  1.
+
+    Submit an interactive job
+
+  2.
+
+    `module avail`
+
+  3.
+
+    `module load GCC/8.3.0` # load updated GCC module
+
+  4.
+
+    `which g++` # you can ignore this line, but this is where the path to that
+    is inserted in the Makevars file CXX14 line (which I have already inserted)
+
+  5.
+
+    `cd` # make sure your in the base directory
+
+  6.
+
+    `mkdir .R` # Make hidden .R directory
+
+  7.
+
+    `cd .R`
+
+  8.
+
+    `nano Makevars`
+
+  9.
+
+    Add to Makevars file:
+
+CXX14=/software/chtc/eb/GCCcore/8.3.0/bin/g++
+
+CXX14FLAGS=-O3 -march=native -mtune=native -fPIC
+
+
+Start R and use install.packages to install RStan.
+
+
+Then edit submit file/ bash wrapper by following our R guide (https://chtc.cs.wisc.edu/uw-research-computing/r-jobs.html
+Running R Jobs
+ACTION REQUIRED: As of September 29th, the HTC system’s default operating system will transition to CentOS Stream 8. This guide has been updated to reflect this change. However, this transition may impact users were running R jobs before September 29th. For more information, see the HTC Operating System Transition guide.
+chtc.cs.wisc.edu
+):
+
+
+Step 1:
+
+Edit submit file to have bash wrapper script as executable (e.g. a file called
+something like `Rwrapper.sh`)
+
+
+
+Step 2: Make bash `Rwrapper.sh` wrapper script (below)
+
+```
+
+#!/bin/bash
+
+
+# Commands to enable modules, and then load an appropriate GCC module. This is
+the only new chunk that is different from our R guide.
+
+export PATH
+
+. /etc/profile.d/modules.sh
+
+module load GCC/8.3.0
+
+
+# untar your R installation. Make sure you are using the right version!
+
+tar -xzf R###.tar.gz
+
+
+# (optional) if you have a set of packages (created in Part 1), untar them also
+
+tar -xzf packages.tar.gz
+
+
+# make sure the script will use your R installation,
+
+# and the working directory as its home location
+
+export PATH=$PWD/R/bin:$PATH
+
+export RHOME=$PWD/R
+
+export R_LIBS=$PWD/packages
+
+
+# run your script
+
+Rscript my_script.R
+
+```
