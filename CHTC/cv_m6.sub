@@ -1,21 +1,21 @@
 universe = docker
-docker_image = mhuang233/bart_22:v0
+docker_image = mhuang233/flexbart:v0
 executable = cv_m6.sh
-arguments = $(f) $(c)
+arguments = $(f) $(c) $(m)
 
-output = /home/mhuang233/cv_sim/cluster_$(Cluster)_$(Process)_fold$(f)_seed$(c)_m6.out
-log = /home/mhuang233/cv_sim/cluster_$(Cluster)_$(Process)_fold$(f)_seed$(c)_m6.log
-error = /home/mhuang233/cv_sim/cluster_$(Cluster)_$(Process)_fold$(f)_seed$(c)_m6.err
+output = /home/mhuang233/cv_sim/cluster_$(Cluster)_con$(m)_fold$(f)_seed$(c)_m6.out
+log = /home/mhuang233/cv_sim/cluster_$(Cluster)_con$(m)_fold$(f)_seed$(c)_m6.log
+error = /home/mhuang233/cv_sim/cluster_$(Cluster)_con$(m)_fold$(f)_seed$(c)_m6.err
 
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
-transfer_input_files = cv_m6.R, m6_diminish.RData, m6.stan
+transfer_input_files = model6.R, model6.stan, m1_constant_no.RData, m2_noisy_no.RData, m3_constant_momed.RData, m4_noisy_momed.RData, m5_constant_all.RData, m6_noisy_all.RData
 
 # IMPORTANT! Require execute servers that can access /staging
 Requirements = (Target.HasCHTCStaging == true)
 
-request_cpus = 4
-request_memory = 35 GB
+request_cpus = 1
+request_memory = 45 GB
 request_disk = 2 GB
 
-queue f, c from arg_cv.txt
+queue f, c, m from arg_cv.txt
